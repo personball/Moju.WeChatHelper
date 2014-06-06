@@ -7,13 +7,12 @@ Moju.WeChatHelper
 ###用例介绍
 TODO
 ###配置方式（微信appid，appsecret，token）
- {% highlight xml %}
- <configSections>
-    <section name="WeChatHelperSection" type="Moju.WeChatHelper.WeChatHelperSection, Moju.WeChatHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
- </configSections>
- <WeChatHelperSection WeChatAppID="" WeChatAppSecret="" Token="" />
- {% endhighlight %}
 
+		<configSections>
+		 <section name="WeChatHelperSection" type="Moju.WeChatHelper.WeChatHelperSection, Moju.WeChatHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+		</configSections>
+		<WeChatHelperSection WeChatAppID="" WeChatAppSecret="" Token="" />
+ 
 ###开发思路，思维导图
 ![思路及进度](思路及进度.png)
 ###命名空间说明
