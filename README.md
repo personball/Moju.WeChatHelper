@@ -5,7 +5,7 @@ Moju.WeChatHelper
 
  
 ###用例介绍
-TODO
+![demo](demo.png)
 ###配置方式（微信appid，appsecret，token）
 
 		<configSections>
