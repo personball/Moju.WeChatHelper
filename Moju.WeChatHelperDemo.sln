@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moju.WeChatHelper", "Moju.WeChatHelper\Moju.WeChatHelper.csproj", "{755C1FE9-C6EC-4DBE-8A81-42216FA13ED4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{5D196811-7D06-4909-B2BC-1F2CB0982697}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Tests", "Demo.Tests\Demo.Tests.csproj", "{6D43A6B1-5444-4117-9E3A-0D4DB394DD2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{755C1FE9-C6EC-4DBE-8A81-42216FA13ED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{755C1FE9-C6EC-4DBE-8A81-42216FA13ED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{755C1FE9-C6EC-4DBE-8A81-42216FA13ED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{755C1FE9-C6EC-4DBE-8A81-42216FA13ED4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D196811-7D06-4909-B2BC-1F2CB0982697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D196811-7D06-4909-B2BC-1F2CB0982697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D196811-7D06-4909-B2BC-1F2CB0982697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D196811-7D06-4909-B2BC-1F2CB0982697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D43A6B1-5444-4117-9E3A-0D4DB394DD2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D43A6B1-5444-4117-9E3A-0D4DB394DD2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D43A6B1-5444-4117-9E3A-0D4DB394DD2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D43A6B1-5444-4117-9E3A-0D4DB394DD2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

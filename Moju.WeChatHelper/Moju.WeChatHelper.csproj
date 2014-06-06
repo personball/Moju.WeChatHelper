@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{755C1FE9-C6EC-4DBE-8A81-42216FA13ED4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Moju.WeChatHelper</RootNamespace>
+    <AssemblyName>Moju.WeChatHelper</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Moju.WeChatHelperDemo\packages\Newtonsoft.Json.6.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionResults\Article.cs" />
+    <Compile Include="ActionResults\SMessageType.cs" />
+    <Compile Include="Common\UpLoadMediaType.cs" />
+    <Compile Include="Factory\EMessageFactory.cs" />
+    <Compile Include="Factory\MessageFactory.cs" />
+    <Compile Include="Factory\RMessageFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\Utils.cs" />
+    <Compile Include="ActionResults\WeChatImageResult.cs" />
+    <Compile Include="ActionResults\WeChatMusicResult.cs" />
+    <Compile Include="ActionResults\WeChatNewsResult.cs" />
+    <Compile Include="ActionResults\WeChatResult.cs" />
+    <Compile Include="ActionResults\WeChatTextResult.cs" />
+    <Compile Include="Filters\WeChatVerifyAttribute.cs" />
+    <Compile Include="ActionResults\WeChatVideoResult.cs" />
+    <Compile Include="ActionResults\WeChatVoiceResult.cs" />
+    <Compile Include="Receive\EClickMessage.cs" />
+    <Compile Include="Receive\ELocationMessage.cs" />
+    <Compile Include="Receive\EMessage.cs" />
+    <Compile Include="Receive\EScanMessage.cs" />
+    <Compile Include="Receive\EScanSubscribeMessage.cs" />
+    <Compile Include="Receive\ESubscribeMessage.cs" />
+    <Compile Include="Receive\EUnSubscribeMessage.cs" />
+    <Compile Include="Receive\EventType.cs" />
+    <Compile Include="Receive\EViewMessage.cs" />
+    <Compile Include="Receive\Message.cs" />
+    <Compile Include="Receive\RImageMessage.cs" />
+    <Compile Include="Receive\RLinkMessage.cs" />
+    <Compile Include="Receive\RLocationMessage.cs" />
+    <Compile Include="Receive\RMessage.cs" />
+    <Compile Include="Receive\MessageType.cs" />
+    <Compile Include="Receive\RTextMessage.cs" />
+    <Compile Include="Receive\RVideoMessage.cs" />
+    <Compile Include="Receive\RVoiceMessage.cs" />
+    <Compile Include="WeChatHelper.cs" />
+    <Compile Include="WeChatHelperSection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
