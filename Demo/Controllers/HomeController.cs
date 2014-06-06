@@ -38,6 +38,20 @@ namespace Demo.Controllers
             if (msg.MsgType == MessageType.Text)
             {
                 RTextMessage text = (RTextMessage)msg;
+                //测试获取access_token接口
+                if (text.Content == "t1")
+                {
+                    string AccessToken = WeChatHelper.GetAccessToken();
+                    log("AccessToken:" + AccessToken);
+                    return new WeChatTextResult
+                    {
+                        FromUserName = text.ToUserName,
+                        ToUserName = text.FromUserName,
+                        CreateTime = DateTime.Now,
+                        Content = text.Content+AccessToken
+                    };
+                }
+
                 //被动响应消息封装的类继承于ActionResult
                 return new WeChatTextResult
                 {
