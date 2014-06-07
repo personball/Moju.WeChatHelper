@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
-
+using Newtonsoft.Json;
 namespace Demo.Controllers
 {
     public class HomeController : Controller
@@ -48,8 +48,30 @@ namespace Demo.Controllers
                         FromUserName = text.ToUserName,
                         ToUserName = text.FromUserName,
                         CreateTime = DateTime.Now,
-                        Content = text.Content+AccessToken
+                        Content = text.Content + AccessToken
                     };
+                }
+                //测试图片上传接口
+                if (text.Content == "t2")
+                {
+                    string AccessToken = WeChatHelper.GetAccessToken();//实际开发时，请勿过多请求AccessToken，保存后未过期则沿用
+                    //正常结果：{"access_token":"ACCESS_TOKEN","expires_in":7200}
+                    //异常结果：{"errcode":40013,"errmsg":"invalid appid"}
+                    var tokenObj = new { access_token = "", expires_in = 0 };
+                    var tokenRes = JsonConvert.DeserializeAnonymousType(AccessToken, tokenObj);
+
+                    string res = WeChatHelper.UpLoadMediaFile(tokenRes.access_token, UpLoadMediaType.Image, Server.MapPath("~/mind.jpg"));
+                    var rightDef = new { type = "", media_id = "", created_at = 0 };//{"type":"TYPE","media_id":"MEDIA_ID","created_at":123456789}
+
+                    var resObj = JsonConvert.DeserializeAnonymousType(res, rightDef);
+                    return new WeChatImageResult
+                    {
+                        CreateTime = DateTime.Now,
+                        FromUserName = text.ToUserName,
+                        ToUserName = text.FromUserName,
+                        MediaId = resObj.media_id
+                    };
+
                 }
 
                 //被动响应消息封装的类继承于ActionResult
