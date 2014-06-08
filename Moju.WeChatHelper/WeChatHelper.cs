@@ -119,6 +119,46 @@ namespace Moju.WeChatHelper
                 }
             }
         }
-
+        /// <summary>
+        /// 创建自定义菜单
+        /// </summary>
+        /// <param name="AccessToken"></param>
+        /// <returns></returns>
+        public static string MenuCreate(string AccessToken, Menu menu)
+        {
+            string url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}", AccessToken);
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+            req.Method = "POST";
+            string postData = menu.GetJson().ToString();
+            byte[] data = Encoding.UTF8.GetBytes(postData);
+            req.ContentLength = data.Length;
+            using (Stream sw = req.GetRequestStream())
+            {
+                sw.Write(data, 0, data.Length);
+                sw.Flush();
+                using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
+                {
+                    if (resp.StatusCode == HttpStatusCode.OK)
+                    {
+                        using (StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                        {
+                            return sr.ReadToEnd();
+                        }
+                    }
+                    else
+                    {
+                        return "接口调用异常";
+                    }
+                }
+            }
+        }
+        public static string MenuGet()
+        {
+            return null;
+        }
+        public static string MenuDelete()
+        {
+            return null;
+        }
     }
 }

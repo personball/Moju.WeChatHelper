@@ -54,13 +54,7 @@ namespace Demo.Controllers
                 //测试图片上传接口
                 if (text.Content == "t2")
                 {
-                    string AccessToken = WeChatHelper.GetAccessToken();//实际开发时，请勿过多请求AccessToken，保存后未过期则沿用
-                    //正常结果：{"access_token":"ACCESS_TOKEN","expires_in":7200}
-                    //异常结果：{"errcode":40013,"errmsg":"invalid appid"}
-                    var tokenObj = new { access_token = "", expires_in = 0 };
-                    var tokenRes = JsonConvert.DeserializeAnonymousType(AccessToken, tokenObj);
-
-                    string res = WeChatHelper.UpLoadMediaFile(tokenRes.access_token, UpLoadMediaType.Image, Server.MapPath("~/mind.jpg"));
+                    string res = WeChatHelper.UpLoadMediaFile(GetToken(), UpLoadMediaType.Image, Server.MapPath("~/mind.jpg"));
                     var rightDef = new { type = "", media_id = "", created_at = 0 };//{"type":"TYPE","media_id":"MEDIA_ID","created_at":123456789}
 
                     var resObj = JsonConvert.DeserializeAnonymousType(res, rightDef);
@@ -89,13 +83,8 @@ namespace Demo.Controllers
                 {
                     RImageMessage img = (RImageMessage)msg;
                     //下载图片
-                    string AccessToken = WeChatHelper.GetAccessToken();//实际开发时，请勿过多请求AccessToken，保存后未过期则沿用
-                    //正常结果：{"access_token":"ACCESS_TOKEN","expires_in":7200}
-                    //异常结果：{"errcode":40013,"errmsg":"invalid appid"}
-                    var tokenObj = new { access_token = "", expires_in = 0 };
-                    var tokenRes = JsonConvert.DeserializeAnonymousType(AccessToken, tokenObj);
-                    string FilePath = WeChatHelper.DownLoadMediaFile(tokenRes.access_token, img.MediaId, Server.MapPath("~/files/"));
-                    
+                    string FilePath = WeChatHelper.DownLoadMediaFile(GetToken(), img.MediaId, Server.MapPath("~/files/"));
+
                     log("download:" + FilePath);
 
                     return new WeChatTextResult
@@ -121,6 +110,30 @@ namespace Demo.Controllers
             {
                 sw.WriteLine("{0}\t :{1}", DateTime.Now, str);
             }
+        }
+
+        public ActionResult SetMenu()
+        {
+            string token = GetToken();
+
+            Menu menu = new Menu();
+            menu.button = new List<Button>();
+            menu.button.Add(new ClickButton { Key = "K001", Name = "测试菜单1" });
+            menu.button.Add(new ClickButton { Key = "K002", Name = "测试菜单2" });
+            menu.button.Add(new ClickButton { Key = "K003", Name = "测试菜单3" });
+
+            string res = WeChatHelper.MenuCreate(token, menu);
+            return Content("done:" + res);
+        }
+
+        private string GetToken()
+        {
+            string AccessToken = WeChatHelper.GetAccessToken();//实际开发时，请勿过多请求AccessToken，保存后未过期则沿用
+            //正常结果：{"access_token":"ACCESS_TOKEN","expires_in":7200}
+            //异常结果：{"errcode":40013,"errmsg":"invalid appid"}
+            var tokenObj = new { access_token = "", expires_in = 0 };
+            var tokenRes = JsonConvert.DeserializeAnonymousType(AccessToken, tokenObj);
+            return tokenRes.access_token;
         }
     }
 }

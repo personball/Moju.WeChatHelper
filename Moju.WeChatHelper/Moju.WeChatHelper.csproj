@@ -50,6 +50,12 @@
     <Compile Include="Factory\EMessageFactory.cs" />
     <Compile Include="Factory\MessageFactory.cs" />
     <Compile Include="Factory\RMessageFactory.cs" />
+    <Compile Include="Menu\Button.cs" />
+    <Compile Include="Menu\ButtonType.cs" />
+    <Compile Include="Menu\ClickButton.cs" />
+    <Compile Include="Menu\HasSubButton.cs" />
+    <Compile Include="Menu\Menu.cs" />
+    <Compile Include="Menu\ViewButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Utils.cs" />
     <Compile Include="ActionResults\WeChatImageResult.cs" />
