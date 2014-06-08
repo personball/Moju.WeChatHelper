@@ -21,3 +21,5 @@ Moju.WeChatHelper
 vs2013
 .net framework 4.0
 asp.net mvc4
+###LICENSE
+MIT
