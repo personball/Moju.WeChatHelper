@@ -85,6 +85,29 @@ namespace Demo.Controllers
             }
             else
             {
+                if (msg.MsgType == MessageType.Image)
+                {
+                    RImageMessage img = (RImageMessage)msg;
+                    //下载图片
+                    string AccessToken = WeChatHelper.GetAccessToken();//实际开发时，请勿过多请求AccessToken，保存后未过期则沿用
+                    //正常结果：{"access_token":"ACCESS_TOKEN","expires_in":7200}
+                    //异常结果：{"errcode":40013,"errmsg":"invalid appid"}
+                    var tokenObj = new { access_token = "", expires_in = 0 };
+                    var tokenRes = JsonConvert.DeserializeAnonymousType(AccessToken, tokenObj);
+                    string FilePath = WeChatHelper.DownLoadMediaFile(tokenRes.access_token, img.MediaId, Server.MapPath("~/files/"));
+                    
+                    log("download:" + FilePath);
+
+                    return new WeChatTextResult
+                    {
+                        FromUserName = img.ToUserName,
+                        ToUserName = img.FromUserName,
+                        Content = "图片已存，文件名：" + FilePath,
+                        CreateTime = DateTime.Now
+                    };
+                }
+
+
                 return Content("");
             }
         }

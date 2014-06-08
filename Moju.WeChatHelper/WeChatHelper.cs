@@ -103,19 +103,19 @@ namespace Moju.WeChatHelper
                         try
                         {
                             //TODO 语音文件的mime类型？视频文件不可下载
-                            string FileName=SavePath+DateTime.Now.ToString("yyyyMMddHHmmssfff")+MediaID+".jpg";
-                            mywebclient.DownloadFile(resp.ResponseUri.ToString(), SavePath);
+                            string FileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".jpg";
+                            mywebclient.DownloadFile(resp.ResponseUri.ToString(), SavePath + FileName);//注意保存路径的写入权限
                             return FileName;
                         }
                         catch (Exception ex)
                         {
-                            throw;
+                            return ex.StackTrace;
                         }
                     }
                 }
                 else
                 {
-                    throw new Exception("微信下载接口调用失败!");
+                    return "微信下载接口调用失败!";
                 }
             }
         }
