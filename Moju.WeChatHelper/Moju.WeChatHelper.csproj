@@ -54,6 +54,7 @@
     <Compile Include="Menu\ButtonType.cs" />
     <Compile Include="Menu\ClickButton.cs" />
     <Compile Include="Menu\HasSubButton.cs" />
+    <Compile Include="Menu\JsonExtend.cs" />
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\ViewButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

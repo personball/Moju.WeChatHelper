@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Text;
-
+using System.Linq;
 namespace Moju.WeChatHelper
 {
     public class WeChatHelper
@@ -147,14 +148,30 @@ namespace Moju.WeChatHelper
                     }
                     else
                     {
-                        return "接口调用异常";
+                        return "error";
                     }
                 }
             }
         }
-        public static string MenuGet()
+        public static string MenuGet(string AccessToken)
         {
-            return null;
+            string url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", AccessToken);
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+            req.Method = "GET";
+            using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
+            {
+                if (resp.StatusCode == HttpStatusCode.OK)
+                {
+                    using (StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        return sr.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    return "error";
+                }
+            }
         }
         public static string MenuDelete()
         {

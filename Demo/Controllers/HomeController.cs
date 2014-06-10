@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 namespace Demo.Controllers
 {
     public class HomeController : Controller
@@ -125,6 +126,20 @@ namespace Demo.Controllers
             string res = WeChatHelper.MenuCreate(token, menu);
             return Content("done:" + res);
         }
+
+        public ActionResult GetMenu()
+        {
+            string token = GetToken();
+            string res = WeChatHelper.MenuGet(token);
+            Menu menu = new Menu();
+            if (res!="error")
+            {
+                JObject Jobj = JObject.Parse(res);   
+                menu.button = ((JArray)Jobj["menu"]["button"]).ToWeChatMenuButtonList().ToList();
+            }
+            return Content(res+"<br/>"+menu.GetJson().ToString());
+        }
+
 
         private string GetToken()
         {
