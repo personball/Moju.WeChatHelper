@@ -19,24 +19,7 @@ namespace Moju.WeChatHelper
         public static string GetAccessToken()
         {
             string url = string.Format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}", config.WeChatAppID, config.WeChatAppSecret);
-            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
-            req.Method = "GET";
-            using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
-            {
-                if (resp.StatusCode == HttpStatusCode.OK)
-                {
-                    using (StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
-                    {
-                        //正常结果：{"access_token":"ACCESS_TOKEN","expires_in":7200}
-                        //异常结果：{"errcode":40013,"errmsg":"invalid appid"}
-                        return sr.ReadToEnd();
-                    }
-                }
-                else
-                {
-                    throw new Exception("微信AccessToken接口调用失败!");
-                }
-            }
+            return GetRequestUrl(url);
         }
         /// <summary>
         /// 上传本地文件
@@ -156,6 +139,20 @@ namespace Moju.WeChatHelper
         public static string MenuGet(string AccessToken)
         {
             string url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", AccessToken);
+            return GetRequestUrl(url);
+        }
+        public static string MenuDelete(string AccessToken)
+        {
+            string url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}", AccessToken);
+            return GetRequestUrl(url);
+        }
+        /// <summary>
+        /// 发送一个GET请求
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private static string GetRequestUrl(string url)
+        {
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.Method = "GET";
             using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
@@ -172,10 +169,6 @@ namespace Moju.WeChatHelper
                     return "error";
                 }
             }
-        }
-        public static string MenuDelete()
-        {
-            return null;
         }
     }
 }
