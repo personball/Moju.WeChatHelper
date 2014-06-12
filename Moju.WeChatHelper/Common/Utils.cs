@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Security;
@@ -25,7 +26,7 @@ namespace Moju.WeChatHelper
             tmp.Add(timestamp);
             tmp.Add(nonce);
             string str = string.Join("", tmp);
-            string hashRes = SHA1(str);
+            string hashRes = FormsAuthentication.HashPasswordForStoringInConfigFile(str, "SHA1").ToLower();
             if (!string.IsNullOrWhiteSpace(hashRes) && signature == hashRes)
             {
                 return true;
@@ -34,28 +35,6 @@ namespace Moju.WeChatHelper
             {
                 return false;
             }
-        }
-
-        /// <summary>
-        /// SHA1加密
-        /// </summary>
-        private static string SHA1(string ToEncrypt)
-        {
-            return FormsAuthentication.HashPasswordForStoringInConfigFile(ToEncrypt, "SHA1").ToLower();
-            // 
-            /*
-             *  var sha1 = new SHA1CryptoServiceProvider();
-            return BitConverter.ToString(sha1.ComputeHash(Encoding.Default.GetBytes(result))).Replace("-", "").ToLower();
-             */
-            //byte[] StrRes = Encoding.Default.GetBytes(ToEncrypt);
-            //HashAlgorithm iSHA = new SHA1CryptoServiceProvider();
-            //StrRes = iSHA.ComputeHash(StrRes);
-            //StringBuilder EnText = new StringBuilder();
-            //foreach (byte iByte in StrRes)
-            //{
-            //    EnText.AppendFormat("{0:x2}", iByte);
-            //}
-            //return EnText.ToString();
         }
 
         /// <summary>
@@ -72,5 +51,63 @@ namespace Moju.WeChatHelper
                 return (T)serializer.Deserialize(sr);
             }
         }
+
+        /// <summary>
+        /// 发送一个GET请求
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string RequestGet(string url)
+        {
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+            req.Method = "GET";
+            using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
+            {
+                if (resp.StatusCode == HttpStatusCode.OK)
+                {
+                    using (StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        return sr.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    return "error";
+                }
+            }
+        }
+        /// <summary>
+        /// 发送一个POST请求
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="postData"></param>
+        /// <returns></returns>
+        public static string RequestPost(string url, string postData)
+        {
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+            req.Method = "POST";
+            byte[] data = Encoding.UTF8.GetBytes(postData);
+            req.ContentLength = data.Length;
+            using (Stream sw = req.GetRequestStream())
+            {
+                sw.Write(data, 0, data.Length);
+                sw.Flush();
+                using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
+                {
+                    if (resp.StatusCode == HttpStatusCode.OK)
+                    {
+                        using (StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                        {
+                            return sr.ReadToEnd();
+                        }
+                    }
+                    else
+                    {
+                        return "error";
+                    }
+                }
+            }
+        }
+
     }
 }

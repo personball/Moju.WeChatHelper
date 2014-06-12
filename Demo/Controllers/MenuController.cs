@@ -19,14 +19,14 @@ namespace Demo.Controllers
             menu.button.Add(new ClickButton { Key = "K002", Name = "测试菜单2" });
             menu.button.Add(new ClickButton { Key = "K003", Name = "测试菜单3" });
 
-            string res = WeChatHelper.MenuCreate(token, menu);
+            string res = MenuHelper.Create(token, menu);
             return Content("done:" + res);
         }
 
         public ActionResult Get()
         {
             string token = Tools.GetToken();
-            string res = WeChatHelper.MenuGet(token);
+            string res = MenuHelper.Get(token);
             Menu menu = new Menu();
             if (res != "error")
             {
@@ -38,7 +38,7 @@ namespace Demo.Controllers
         public ActionResult Del()
         {
             string token = Tools.GetToken();
-            string res = WeChatHelper.MenuDelete(token);
+            string res = MenuHelper.Delete(token);
             return Content(res);
         }
     }

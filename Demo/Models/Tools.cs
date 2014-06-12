@@ -9,7 +9,7 @@ namespace Demo.Models
     {
         public static string GetToken()
         {
-            string AccessToken = WeChatHelper.GetAccessToken();//实际开发时，请勿过多请求AccessToken，保存后未过期则沿用
+            string AccessToken = BaseHelper.GetAccessToken();//实际开发时，请勿过多请求AccessToken，保存后未过期则沿用
             //正常结果：{"access_token":"ACCESS_TOKEN","expires_in":7200}
             //异常结果：{"errcode":40013,"errmsg":"invalid appid"}
             var tokenObj = new { access_token = "", expires_in = 0 };

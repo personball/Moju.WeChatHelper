@@ -7,7 +7,10 @@ using System.Text;
 using System.Linq;
 namespace Moju.WeChatHelper
 {
-    public class WeChatHelper
+    /// <summary>
+    /// 基础支持
+    /// </summary>
+    public class BaseHelper
     {
         private static WeChatHelperSection config = (WeChatHelperSection)ConfigurationManager.GetSection("WeChatHelperSection");
         /// <summary>
@@ -19,7 +22,7 @@ namespace Moju.WeChatHelper
         public static string GetAccessToken()
         {
             string url = string.Format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}", config.WeChatAppID, config.WeChatAppSecret);
-            return GetRequestUrl(url);
+            return Utils.RequestGet(url);
         }
         /// <summary>
         /// 上传本地文件
@@ -100,73 +103,6 @@ namespace Moju.WeChatHelper
                 else
                 {
                     return "微信下载接口调用失败!";
-                }
-            }
-        }
-        /// <summary>
-        /// 创建自定义菜单
-        /// </summary>
-        /// <param name="AccessToken"></param>
-        /// <returns></returns>
-        public static string MenuCreate(string AccessToken, Menu menu)
-        {
-            string url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}", AccessToken);
-            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
-            req.Method = "POST";
-            string postData = menu.GetJson().ToString();
-            byte[] data = Encoding.UTF8.GetBytes(postData);
-            req.ContentLength = data.Length;
-            using (Stream sw = req.GetRequestStream())
-            {
-                sw.Write(data, 0, data.Length);
-                sw.Flush();
-                using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
-                {
-                    if (resp.StatusCode == HttpStatusCode.OK)
-                    {
-                        using (StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
-                        {
-                            return sr.ReadToEnd();
-                        }
-                    }
-                    else
-                    {
-                        return "error";
-                    }
-                }
-            }
-        }
-        public static string MenuGet(string AccessToken)
-        {
-            string url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", AccessToken);
-            return GetRequestUrl(url);
-        }
-        public static string MenuDelete(string AccessToken)
-        {
-            string url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}", AccessToken);
-            return GetRequestUrl(url);
-        }
-        /// <summary>
-        /// 发送一个GET请求
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        private static string GetRequestUrl(string url)
-        {
-            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
-            req.Method = "GET";
-            using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
-            {
-                if (resp.StatusCode == HttpStatusCode.OK)
-                {
-                    using (StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
-                    {
-                        return sr.ReadToEnd();
-                    }
-                }
-                else
-                {
-                    return "error";
                 }
             }
         }

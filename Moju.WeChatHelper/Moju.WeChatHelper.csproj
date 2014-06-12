@@ -50,6 +50,10 @@
     <Compile Include="Factory\EMessageFactory.cs" />
     <Compile Include="Factory\MessageFactory.cs" />
     <Compile Include="Factory\RMessageFactory.cs" />
+    <Compile Include="Group\GroupHelper.cs" />
+    <Compile Include="Group\Group.cs" />
+    <Compile Include="UserHelper.cs" />
+    <Compile Include="Menu\MenuHelper.cs" />
     <Compile Include="Menu\Button.cs" />
     <Compile Include="Menu\ButtonType.cs" />
     <Compile Include="Menu\ClickButton.cs" />
@@ -85,7 +89,7 @@
     <Compile Include="Receive\RTextMessage.cs" />
     <Compile Include="Receive\RVideoMessage.cs" />
     <Compile Include="Receive\RVoiceMessage.cs" />
-    <Compile Include="WeChatHelper.cs" />
+    <Compile Include="BaseHelper.cs" />
     <Compile Include="WeChatHelperSection.cs" />
   </ItemGroup>
   <ItemGroup>

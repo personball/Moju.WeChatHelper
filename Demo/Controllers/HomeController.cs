@@ -38,7 +38,7 @@ namespace Demo.Controllers
                 //测试获取access_token接口
                 if (text.Content == "t1")
                 {
-                    string AccessToken = WeChatHelper.GetAccessToken();
+                    string AccessToken = BaseHelper.GetAccessToken();
                     Tools.Log("AccessToken:" + AccessToken);
                     return new WeChatTextResult
                     {
@@ -51,7 +51,7 @@ namespace Demo.Controllers
                 //测试图片上传接口
                 if (text.Content == "t2")
                 {
-                    string res = WeChatHelper.UpLoadMediaFile(Tools.GetToken(), UpLoadMediaType.Image, Server.MapPath("~/mind.jpg"));
+                    string res = BaseHelper.UpLoadMediaFile(Tools.GetToken(), UpLoadMediaType.Image, Server.MapPath("~/mind.jpg"));
                     var rightDef = new { type = "", media_id = "", created_at = 0 };//{"type":"TYPE","media_id":"MEDIA_ID","created_at":123456789}
 
                     var resObj = JsonConvert.DeserializeAnonymousType(res, rightDef);
@@ -80,7 +80,7 @@ namespace Demo.Controllers
                 {
                     RImageMessage img = (RImageMessage)msg;
                     //下载图片
-                    string FilePath = WeChatHelper.DownLoadMediaFile(Tools.GetToken(), img.MediaId, Server.MapPath("~/files/"));
+                    string FilePath = BaseHelper.DownLoadMediaFile(Tools.GetToken(), img.MediaId, Server.MapPath("~/files/"));
 
                     Tools.Log("download:" + FilePath);
 
